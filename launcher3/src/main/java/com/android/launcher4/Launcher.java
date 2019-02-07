@@ -3206,7 +3206,7 @@ public class Launcher extends Activity
                 if (mWorkspace.isInOverviewMode()) {
                     mWorkspace.startReordering(v);
                 } else {
-                    showOverviewMode(true);
+                    //showOverviewMode(true);
                 }
             } else {
                 final boolean isAllAppsButton = inHotseat && isAllAppsButtonRank(

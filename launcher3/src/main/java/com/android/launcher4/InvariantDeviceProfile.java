@@ -21,6 +21,7 @@ import android.content.Context;
 import android.graphics.Point;
 import android.os.Build;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
@@ -32,6 +33,7 @@ import java.util.Comparator;
 
 public class InvariantDeviceProfile {
 
+    private static final String TAG = "InvariantDeviceProfile";
     // This is a static that we use for the default icon size on a 4/5-inch phone
     private static float DEFAULT_ICON_SIZE_DP = 60;
 
@@ -137,21 +139,27 @@ public class InvariantDeviceProfile {
                 invDistWeightedInterpolate(minWidthDps,  minHeightDps, closestProfiles);
 
         InvariantDeviceProfile closestProfile = closestProfiles.get(0);
-        numRows = closestProfile.numRows;
-        numColumns = closestProfile.numColumns;
-        numHotseatIcons = closestProfile.numHotseatIcons;
+        numRows = 4;//closestProfile.numRows;
+        numColumns = 3;//closestProfile.numColumns;
+        numHotseatIcons = 3;//closestProfile.numHotseatIcons;
         hotseatAllAppsRank = (int) (numHotseatIcons / 2);
         defaultLayoutId = closestProfile.defaultLayoutId;
         numFolderRows = closestProfile.numFolderRows;
         numFolderColumns = closestProfile.numFolderColumns;
         minAllAppsPredictionColumns = closestProfile.minAllAppsPredictionColumns;
 
-        iconSize = interpolatedDeviceProfileOut.iconSize;
+        iconSize = 200;//interpolatedDeviceProfileOut.iconSize;
         iconBitmapSize = Utilities.pxFromDp(iconSize, dm);
         iconTextSize = interpolatedDeviceProfileOut.iconTextSize;
         hotseatIconSize = interpolatedDeviceProfileOut.hotseatIconSize;
         fillResIconDpi = getLauncherIconDensity(iconBitmapSize);
 
+        Log.d(TAG, "InvariantDeviceProfile: "
+                + numRows + " "
+                + numColumns + " "
+                + closestProfile.numHotseatIcons + " "
+                + interpolatedDeviceProfileOut.hotseatIconSize + " "
+                + interpolatedDeviceProfileOut.iconSize);
         // If the partner customization apk contains any grid overrides, apply them
         // Supported overrides: numRows, numColumns, iconSize
         applyPartnerDeviceProfileOverrides(context, dm);
